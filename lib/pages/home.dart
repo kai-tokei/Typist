@@ -22,32 +22,26 @@ class _Home extends State<Home> {
           children: [
             FloatingActionButton(
               onPressed: () {},
-              heroTag: "New file",
-              tooltip: 'New file',
+              heroTag: "download",
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(50)),
-              child: const Icon(Icons.file_download_outlined,
-                  color: Colors.black, size: 30),
+              child: const Icon(Icons.file_download_outlined, size: 30),
+            ),
+            const SizedBox(height: 12),
+            FloatingActionButton(
+              onPressed: () {},
+              heroTag: "upload",
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(50)),
+              child: const Icon(Icons.upload_file_outlined, size: 30),
             ),
             const SizedBox(height: 12),
             FloatingActionButton(
               onPressed: () {},
               heroTag: "New file",
-              tooltip: 'New file',
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(50)),
-              child: const Icon(Icons.upload_file_outlined,
-                  color: Colors.black, size: 30),
-            ),
-            const SizedBox(height: 12),
-            FloatingActionButton(
-              onPressed: () {},
-              heroTag: "New file",
-              tooltip: 'New file',
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(50)),
-              child: const Icon(Icons.note_add_outlined,
-                  color: Colors.black, size: 30),
+              child: const Icon(Icons.note_add_outlined, size: 30),
             ),
           ],
         ));

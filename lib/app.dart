@@ -27,8 +27,8 @@ class TypistApp extends StatelessWidget {
       //  useMaterial3: true,
       //),
       darkTheme: ThemeData(
-        colorScheme: const ColorScheme.dark(
-          primary: Colors.white, // 主要な色
+        colorScheme: ColorScheme.dark(
+          primary: Colors.grey.shade800, // 主要な色
           secondary: Colors.grey, // セカンダリ色
           surface: Colors.white, // 表面色
           error: Colors.red, // エラー色
