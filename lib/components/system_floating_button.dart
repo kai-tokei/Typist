@@ -14,14 +14,11 @@ class SystemFloatingButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        margin: const EdgeInsets.fromLTRB(0, 8, 0, 8),
-        child: FloatingActionButton(
-          onPressed: onPressed,
-          heroTag: hero,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
-          child: Icon(icons, size: 30),
-        ));
+    return FloatingActionButton(
+      onPressed: onPressed,
+      heroTag: hero,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
+      child: Icon(icons, size: 30),
+    );
   }
 }
