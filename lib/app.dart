@@ -30,12 +30,13 @@ class TypistApp extends StatelessWidget {
         colorScheme: ColorScheme.dark(
           primary: Colors.grey.shade800, // 主要な色
           secondary: Colors.grey, // セカンダリ色
-          surface: Colors.white, // 表面色
+          surface: Color(0xFF363636), // 表面色
           error: Colors.red, // エラー色
           onPrimary: Colors.white, // 主要な色の上でのテキスト色
           onSecondary: Colors.white,
           onSurface: Colors.white,
           onBackground: Colors.white,
+          background: Color(0xff1E1E1E),
           onError: Colors.red, // エラー色の上でのテキスト色
         ),
         useMaterial3: true,
