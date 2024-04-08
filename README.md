@@ -1,16 +1,15 @@
-# typist
+# Typist
 
-A new Flutter project.
+![lightFace](https://github.com/kai-tokei/Typist/assets/89783070/a65ec734-4275-44fc-9171-26ee50687df0)
 
-## Getting Started
+Typist は、簡単にクリッカブルなメッセージイベントを作成し、編集するためのツールです。
 
-This project is a starting point for a Flutter application.
+## 機能
 
-A few resources to get you started if this is your first Flutter project:
+CSVファイルからメッセージイベントを読み込む機能
+メッセージイベントの追加、編集、削除機能
+イベントの位置やサイズの設定
+メッセージの追加、編集、削除機能
+イベントごとに異なる複数のメッセージの管理
+作成したメッセージイベントのプレビュー機能
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
