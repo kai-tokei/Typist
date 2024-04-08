@@ -11,21 +11,45 @@ class _Home extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[],
+          ),
+        ),
+        floatingActionButton: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            FloatingActionButton(
+              onPressed: () {},
+              heroTag: "New file",
+              tooltip: 'New file',
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(50)),
+              child: const Icon(Icons.file_download_outlined,
+                  color: Colors.black, size: 30),
+            ),
+            const SizedBox(height: 12),
+            FloatingActionButton(
+              onPressed: () {},
+              heroTag: "New file",
+              tooltip: 'New file',
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(50)),
+              child: const Icon(Icons.upload_file_outlined,
+                  color: Colors.black, size: 30),
+            ),
+            const SizedBox(height: 12),
+            FloatingActionButton(
+              onPressed: () {},
+              heroTag: "New file",
+              tooltip: 'New file',
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(50)),
+              child: const Icon(Icons.note_add_outlined,
+                  color: Colors.black, size: 30),
             ),
           ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        tooltip: 'Increment',
-        child: const Icon(Icons.add, color: Colors.black),
-      ),
-    );
+        ));
   }
 }
