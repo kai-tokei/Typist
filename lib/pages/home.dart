@@ -60,7 +60,7 @@ class _Home extends State<Home> {
                   for (final card in events)
                     MessageCard(
                         label: card.label,
-                        overview: card.label,
+                        overview: card.message,
                         edit: () {},
                         trash: () {}),
                   const SizedBox(height: 8),
