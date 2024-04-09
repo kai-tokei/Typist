@@ -15,7 +15,7 @@ class MessageCard extends StatelessWidget {
 
   final TextStyle labelTextStyle = const TextStyle(
     fontWeight: FontWeight.bold,
-    fontSize: 28,
+    fontSize: 24,
   );
 
   final TextStyle overviewTextStyle = const TextStyle(
@@ -42,7 +42,7 @@ class MessageCard extends StatelessWidget {
       child: InkWell(
           onTap: edit,
           child: Container(
-              height: 90,
+              height: 84,
               padding: const EdgeInsets.all(12),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
