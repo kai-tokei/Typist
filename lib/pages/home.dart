@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:typist/components/message_card.dart';
 import 'package:typist/components/system_floating_button.dart';
 
@@ -19,6 +20,134 @@ class MessageEvent {
   final int width;
   final int height;
   final String message;
+}
+
+// 閉じるボタン
+class CloseButton extends StatelessWidget {
+  const CloseButton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return (FloatingActionButton(
+      elevation: 0,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
+      onPressed: () {
+        Navigator.pop(context);
+      },
+      child: const Icon(Icons.close),
+    ));
+  }
+}
+
+class TextBox extends StatelessWidget {
+  const TextBox({
+    super.key,
+    required this.hint,
+    required this.onChanged,
+  });
+
+  final Function(String) onChanged;
+  final String hint;
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+        child: TextField(
+            onChanged: onChanged,
+            cursorColor: Theme.of(context).colorScheme.secondary,
+            style: const TextStyle(fontSize: 18),
+            decoration: InputDecoration(
+              filled: true,
+              hintText: hint,
+              enabledBorder: OutlineInputBorder(
+                  borderSide:
+                      BorderSide(color: Theme.of(context).colorScheme.surface)),
+              border: const OutlineInputBorder(),
+            )));
+  }
+}
+
+class MessageEventDialog extends StatefulWidget {
+  const MessageEventDialog({super.key});
+
+  @override
+  State<MessageEventDialog> createState() => _MessageEventDialog();
+}
+
+class _MessageEventDialog extends State<MessageEventDialog> {
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Container(
+            width: 500,
+            padding: const EdgeInsets.all(12),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                const Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                          child: Text("メッセージイベントを登録",
+                              style: TextStyle(
+                                  fontSize: 26, fontWeight: FontWeight.bold))),
+                      Expanded(child: SizedBox()),
+                      Align(
+                          alignment: Alignment.topRight, child: CloseButton()),
+                    ]),
+                const SizedBox(width: 32),
+                Container(
+                    padding: const EdgeInsets.all(8),
+                    child: Column(
+                      children: [
+                        Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              const SizedBox(
+                                  width: 72,
+                                  child: Text("Label",
+                                      style: TextStyle(
+                                          fontSize: 22,
+                                          fontWeight: FontWeight.bold))),
+                              const SizedBox(width: 4),
+                              TextBox(
+                                  hint: "Name of the event", onChanged: (v) {})
+                            ]),
+                        const SizedBox(height: 8),
+                        Row(children: [
+                          const SizedBox(
+                              width: 72,
+                              child: Text("Pos",
+                                  style: TextStyle(
+                                      fontSize: 22,
+                                      fontWeight: FontWeight.bold))),
+                          const SizedBox(width: 4),
+                          TextBox(hint: "x", onChanged: (v) {}),
+                          const SizedBox(width: 8),
+                          TextBox(hint: "y", onChanged: (v) {}),
+                        ]),
+                        const SizedBox(height: 8),
+                        Row(children: [
+                          const SizedBox(
+                              width: 72,
+                              child: Text("Size",
+                                  style: TextStyle(
+                                      fontSize: 22,
+                                      fontWeight: FontWeight.bold))),
+                          const SizedBox(width: 4),
+                          TextBox(hint: "width", onChanged: (v) {}),
+                          const SizedBox(width: 8),
+                          TextBox(hint: "height", onChanged: (v) {}),
+                        ]),
+                      ],
+                    )),
+              ],
+            ),
+          )),
+    );
+  }
 }
 
 class Home extends StatefulWidget {
@@ -48,6 +177,11 @@ class _Home extends State<Home> {
     ),
   ];
 
+  // メッセージイベントの追加
+  void addMessageEvent(MessageEvent event) {
+    events.add(event);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,11 +195,37 @@ class _Home extends State<Home> {
                     MessageCard(
                         label: card.label,
                         overview: card.message,
-                        edit: () {},
-                        trash: () {}),
+                        edit: () {
+                          showDialog<String>(
+                              context: context,
+                              builder: (BuildContext context) =>
+                                  const MessageEventDialog());
+                        },
+                        trash: () {
+                          setState(() {
+                            events.remove(card);
+                          });
+                        }),
                   const SizedBox(height: 8),
                   SystemFloatingButton(
-                      hero: "add", onPressed: () {}, icons: Icons.add_outlined),
+                    hero: "add",
+                    onPressed: () {
+                      setState(() {
+                        addMessageEvent(
+                          const MessageEvent(
+                            label: "イーハトーヴの青い霧。中央駅の華麗なるアーチ",
+                            posX: 100,
+                            posY: 100,
+                            width: 100,
+                            height: 100,
+                            message:
+                                "イーハトーヴの青い霧。中央駅の華麗なるアーチ。白い蒸気をあげながらプラットフォームに",
+                          ),
+                        );
+                      });
+                    },
+                    icons: Icons.add_outlined,
+                  ),
                 ],
               ),
             )),
