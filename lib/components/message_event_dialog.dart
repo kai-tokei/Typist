@@ -1,15 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:typist/components/textbox.dart';
 import 'package:typist/components/multiline_textbox.dart';
+import 'package:typist/consts/message_event.dart';
 
 class MessageEventDialog extends StatefulWidget {
-  const MessageEventDialog({super.key});
+  const MessageEventDialog({
+    super.key,
+    required this.onPressed,
+  });
+
+  final Function(MessageEvent) onPressed;
 
   @override
   State<MessageEventDialog> createState() => _MessageEventDialog();
 }
 
 class _MessageEventDialog extends State<MessageEventDialog> {
+  String label = "";
+  int posX = 0;
+  int posY = 0;
+  int w = 0;
+  int h = 0;
+  String message = "";
+
+  // Addできるか判定
+  bool propatiesOk() {
+    bool sizeOk = w > 0 && h > 0;
+    bool labelOk = label != "";
+    bool messageOk = message != "";
+
+    return sizeOk && labelOk && messageOk;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -49,7 +71,12 @@ class _MessageEventDialog extends State<MessageEventDialog> {
                                           fontWeight: FontWeight.bold))),
                               const SizedBox(width: 4),
                               TextBox(
-                                  hint: "Name of the event", onChanged: (v) {})
+                                  hint: "Name of the event",
+                                  onChanged: (v) {
+                                    setState(() {
+                                      label = v;
+                                    });
+                                  })
                             ]),
                         const SizedBox(height: 8),
                         Row(children: [
@@ -60,9 +87,21 @@ class _MessageEventDialog extends State<MessageEventDialog> {
                                       fontSize: 22,
                                       fontWeight: FontWeight.bold))),
                           const SizedBox(width: 4),
-                          TextBox(hint: "x", onChanged: (v) {}),
+                          TextBox(
+                              hint: "x",
+                              onChanged: (v) {
+                                setState(() {
+                                  posX = int.parse(v);
+                                });
+                              }),
                           const SizedBox(width: 8),
-                          TextBox(hint: "y", onChanged: (v) {}),
+                          TextBox(
+                              hint: "y",
+                              onChanged: (v) {
+                                setState(() {
+                                  posY = int.parse(v);
+                                });
+                              }),
                         ]),
                         const SizedBox(height: 8),
                         Row(children: [
@@ -73,9 +112,21 @@ class _MessageEventDialog extends State<MessageEventDialog> {
                                       fontSize: 22,
                                       fontWeight: FontWeight.bold))),
                           const SizedBox(width: 4),
-                          TextBox(hint: "width", onChanged: (v) {}),
+                          TextBox(
+                              hint: "width",
+                              onChanged: (v) {
+                                setState(() {
+                                  w = int.parse(v);
+                                });
+                              }),
                           const SizedBox(width: 8),
-                          TextBox(hint: "height", onChanged: (v) {}),
+                          TextBox(
+                              hint: "height",
+                              onChanged: (v) {
+                                setState(() {
+                                  h = int.parse(v);
+                                });
+                              }),
                         ]),
                         const SizedBox(height: 12),
                         const Align(
@@ -88,7 +139,11 @@ class _MessageEventDialog extends State<MessageEventDialog> {
                         Row(children: [
                           MultilineTextBox(
                             hintText: "messages...",
-                            onChanged: (v) {},
+                            onChanged: (v) {
+                              setState(() {
+                                message = v;
+                              });
+                            },
                           ),
                         ]),
                       ],
@@ -98,7 +153,7 @@ class _MessageEventDialog extends State<MessageEventDialog> {
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.green,
                     ),
-                    onPressed: () {},
+                    onPressed: propatiesOk() ? () {} : null,
                     child: const SizedBox(
                         height: 45,
                         child: Center(
