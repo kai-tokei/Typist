@@ -27,9 +27,14 @@ class _MessageEventDialog extends State<MessageEventDialog> {
   bool propatiesOk() {
     bool sizeOk = w > 0 && h > 0;
     bool labelOk = label != "";
-    bool messageOk = message != "";
+    bool messageOk = (message != "") && messageJudge(message);
 
     return sizeOk && labelOk && messageOk;
+  }
+
+  // メッセージスナックの制約に合致したテキストか判定
+  bool messageJudge(String text) {
+    return true;
   }
 
   @override
