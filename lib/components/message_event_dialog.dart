@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:typist/components/textbox.dart';
 import 'package:typist/components/multiline_textbox.dart';
 import 'package:typist/consts/message_event.dart';
@@ -33,7 +34,11 @@ class _MessageEventDialog extends State<MessageEventDialog> {
   }
 
   // メッセージスナックの制約に合致したテキストか判定
-  bool messageJudge(String text) {
+  bool messageJudge(
+    String text, {
+    int numOfChars = 18,
+    int numOfLines = 2,
+  }) {
     return true;
   }
 
@@ -94,17 +99,33 @@ class _MessageEventDialog extends State<MessageEventDialog> {
                           const SizedBox(width: 4),
                           TextBox(
                               hint: "x",
+                              keyboardType: TextInputType.number,
+                              inputFormatters: [
+                                FilteringTextInputFormatter.digitsOnly
+                              ],
                               onChanged: (v) {
                                 setState(() {
-                                  posX = int.parse(v);
+                                  if (v != "") {
+                                    posX = int.parse(v);
+                                  } else {
+                                    posX = 0;
+                                  }
                                 });
                               }),
                           const SizedBox(width: 8),
                           TextBox(
                               hint: "y",
+                              keyboardType: TextInputType.number,
+                              inputFormatters: [
+                                FilteringTextInputFormatter.digitsOnly
+                              ],
                               onChanged: (v) {
                                 setState(() {
-                                  posY = int.parse(v);
+                                  if (v != "") {
+                                    posY = int.parse(v);
+                                  } else {
+                                    posY = 0;
+                                  }
                                 });
                               }),
                         ]),
@@ -119,17 +140,33 @@ class _MessageEventDialog extends State<MessageEventDialog> {
                           const SizedBox(width: 4),
                           TextBox(
                               hint: "width",
+                              keyboardType: TextInputType.number,
+                              inputFormatters: [
+                                FilteringTextInputFormatter.digitsOnly
+                              ],
                               onChanged: (v) {
                                 setState(() {
-                                  w = int.parse(v);
+                                  if (v != "") {
+                                    w = int.parse(v);
+                                  } else {
+                                    w = 0;
+                                  }
                                 });
                               }),
                           const SizedBox(width: 8),
                           TextBox(
                               hint: "height",
+                              keyboardType: TextInputType.number,
+                              inputFormatters: [
+                                FilteringTextInputFormatter.digitsOnly
+                              ],
                               onChanged: (v) {
                                 setState(() {
-                                  h = int.parse(v);
+                                  if (v != "") {
+                                    h = int.parse(v);
+                                  } else {
+                                    h = 0;
+                                  }
                                 });
                               }),
                         ]),
