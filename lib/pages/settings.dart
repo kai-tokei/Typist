@@ -18,7 +18,13 @@ class _Settings extends State<Settings> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Align(alignment: Alignment.topLeft, child: BackButton()),
+                Align(
+                    alignment: Alignment.topLeft,
+                    child: BackButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    )),
                 const SizedBox(height: 32),
                 const Text("Num of chars",
                     style:

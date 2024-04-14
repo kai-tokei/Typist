@@ -42,8 +42,8 @@ class TypistApp extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
-      //home: const Home(),
-      home: const Settings(),
+      home: const Home(),
+      //home: const Settings(),
     );
   }
 }

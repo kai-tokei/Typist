@@ -3,6 +3,7 @@ import 'package:typist/components/message_card.dart';
 import 'package:typist/components/system_floating_button.dart';
 import 'package:typist/components/message_event_dialog.dart';
 import 'package:typist/consts/message_event.dart';
+import 'package:typist/pages/settings.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -68,7 +69,10 @@ class _Home extends State<Home> {
           children: [
             SystemFloatingButton(
                 hero: "settings",
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const Settings()));
+                },
                 icons: Icons.settings_outlined),
             const SizedBox(height: 16),
             SystemFloatingButton(
