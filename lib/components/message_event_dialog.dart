@@ -47,22 +47,19 @@ class _MessageEventDialog extends State<MessageEventDialog> {
     int numOfChars = 18,
     int numOfLines = 2,
   }) {
-    int enter = 0;
-    int lineCounter = 0;
-    for (int i = 0; i < text.length; i++) {
-      lineCounter++;
-      if (lineCounter > numOfChars) {
+    int emptyLines = 0;
+    List<String> lines = text.split('\n');
+    for (int i = 0; i < lines.length; i++) {
+      if (lines[i].length > numOfChars) {
         return false;
       }
-      if (text[i] == '\n') {
-        enter++;
-        if (enter > 2) {
-          return false;
-        }
-        lineCounter = 0;
+      if (lines[i] == "") {
+        emptyLines++;
+      } else {
+        emptyLines = 0;
       }
-      if (enter == 2 && lineCounter > 0) {
-        enter = 0;
+      if (emptyLines > 1) {
+        return false;
       }
     }
     return true;
