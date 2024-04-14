@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:typist/components/textbox.dart';
 
 class Settings extends StatefulWidget {
   const Settings({super.key});
@@ -9,7 +11,41 @@ class Settings extends StatefulWidget {
 
 class _Settings extends State<Settings> {
   @override
-  Widget build(BuildContext) {
-    return Scaffold();
+  Widget build(BuildContext context) {
+    return Scaffold(
+        body: Container(
+            margin: const EdgeInsets.all(24),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Align(alignment: Alignment.topLeft, child: BackButton()),
+                const SizedBox(height: 32),
+                const Text("Num of chars",
+                    style:
+                        TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+                const SizedBox(height: 12),
+                SizedBox(
+                    width: 400,
+                    child: TextBox(
+                      hint: "0",
+                      keyboardType: TextInputType.number,
+                      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                      onChanged: (v) {},
+                    )),
+                const SizedBox(height: 32),
+                const Text("Num of lines",
+                    style:
+                        TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+                const SizedBox(height: 12),
+                SizedBox(
+                    width: 400,
+                    child: TextBox(
+                      keyboardType: TextInputType.number,
+                      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                      hint: "0",
+                      onChanged: (v) {},
+                    )),
+              ],
+            )));
   }
 }
