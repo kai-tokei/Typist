@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:typist/components/textbox.dart';
 import 'package:typist/components/multiline_textbox.dart';
 import 'package:typist/consts/message_event.dart';
+import 'package:typist/consts/setting.dart';
 
 class MessageEventDialog extends StatefulWidget {
   const MessageEventDialog({
@@ -24,11 +25,18 @@ class _MessageEventDialog extends State<MessageEventDialog> {
   int h = 0;
   String message = "";
 
+  Setting setting = Setting.instance;
+
   // Addできるか判定
   bool propatiesOk() {
     bool sizeOk = w > 0 && h > 0;
     bool labelOk = label != "";
-    bool messageOk = (message != "") && messageJudge(message);
+    bool messageOk = (message != "") &&
+        messageJudge(
+          message,
+          numOfChars: setting.numOfChar,
+          numOfLines: setting.numOfLine,
+        );
 
     return sizeOk && labelOk && messageOk;
   }
@@ -39,6 +47,24 @@ class _MessageEventDialog extends State<MessageEventDialog> {
     int numOfChars = 18,
     int numOfLines = 2,
   }) {
+    int enter = 0;
+    int lineCounter = 0;
+    for (int i = 0; i < text.length; i++) {
+      lineCounter++;
+      if (lineCounter > numOfChars) {
+        return false;
+      }
+      if (text[i] == '\n') {
+        enter++;
+        if (enter > 2) {
+          return false;
+        }
+        lineCounter = 0;
+      }
+      if (enter == 2 && lineCounter > 0) {
+        enter = 0;
+      }
+    }
     return true;
   }
 
