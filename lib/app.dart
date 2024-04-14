@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:typist/pages/home.dart';
-import 'package:typist/pages/settings.dart';
 
 class TypistApp extends StatelessWidget {
   const TypistApp({super.key});

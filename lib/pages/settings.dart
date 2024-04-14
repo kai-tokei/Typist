@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:typist/components/textbox.dart';
+import 'package:typist/consts/setting.dart';
 
 class Settings extends StatefulWidget {
   const Settings({super.key});
@@ -10,6 +11,8 @@ class Settings extends StatefulWidget {
 }
 
 class _Settings extends State<Settings> {
+  Setting setting = Setting.instance;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,7 +39,9 @@ class _Settings extends State<Settings> {
                       hint: "0",
                       keyboardType: TextInputType.number,
                       inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                      onChanged: (v) {},
+                      onChanged: (v) {
+                        setting.setNumOfChar(int.parse(v));
+                      },
                     )),
                 const SizedBox(height: 32),
                 const Text("Num of lines",
@@ -49,7 +54,9 @@ class _Settings extends State<Settings> {
                       keyboardType: TextInputType.number,
                       inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                       hint: "0",
-                      onChanged: (v) {},
+                      onChanged: (v) {
+                        setting.setNumOfLine(int.parse(v));
+                      },
                     )),
               ],
             )));
