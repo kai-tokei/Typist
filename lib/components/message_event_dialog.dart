@@ -4,6 +4,7 @@ import 'package:typist/components/textbox.dart';
 import 'package:typist/components/multiline_textbox.dart';
 import 'package:typist/consts/message_event.dart';
 import 'package:typist/consts/setting.dart';
+import 'package:typist/consts/messages.dart';
 
 class MessageEventDialog extends StatefulWidget {
   const MessageEventDialog(
@@ -30,7 +31,9 @@ class _MessageEventDialog extends State<MessageEventDialog> {
   late int h = widget.messageEvent.height;
   late String message = widget.messageEvent.message;
 
+  // shared datas
   Setting setting = Setting.instance;
+  Messages messages = Messages.instance;
 
   // Addできるか判定
   bool propatiesOk() {
@@ -231,15 +234,15 @@ class _MessageEventDialog extends State<MessageEventDialog> {
                     ),
                     onPressed: propatiesOk()
                         ? () {
-                            Navigator.pop(
-                                context,
-                                MessageEvent(
-                                    label: label,
-                                    posX: posX,
-                                    posY: posY,
-                                    width: w,
-                                    height: h,
-                                    message: message));
+                            messages.remove(widget.messageEvent);
+                            messages.add(MessageEvent(
+                                label: label,
+                                posX: posX,
+                                posY: posY,
+                                width: w,
+                                height: h,
+                                message: message));
+                            Navigator.pop(context);
                           }
                         : null,
                     child: const SizedBox(

@@ -36,11 +36,14 @@ class _Home extends State<Home> {
                     MessageCard(
                         label: card.label,
                         overview: card.message,
-                        edit: () {
-                          showDialog<MessageEvent>(
+                        edit: () async {
+                          await showDialog<MessageEvent>(
                               context: context,
                               builder: (BuildContext context) =>
-                                  const MessageEventDialog());
+                                  MessageEventDialog(
+                                    messageEvent: card,
+                                  ));
+                          setState(() {});
                         },
                         trash: () {
                           setState(() {
@@ -50,11 +53,12 @@ class _Home extends State<Home> {
                   const SizedBox(height: 8),
                   SystemFloatingButton(
                     hero: "add",
-                    onPressed: () {
-                      showDialog<String>(
+                    onPressed: () async {
+                      await showDialog<String>(
                           context: context,
                           builder: (BuildContext context) =>
                               const MessageEventDialog());
+                      setState(() {});
                     },
                     icons: Icons.add_outlined,
                   ),
