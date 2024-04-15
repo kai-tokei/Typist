@@ -9,12 +9,12 @@ class MessageEventDialog extends StatefulWidget {
   const MessageEventDialog(
       {super.key,
       this.messageEvent = const MessageEvent(
-          label: "イーハトーブ",
+          label: "イベント名",
           posX: 0,
           posY: 0,
           width: 1,
           height: 1,
-          message: "イーハトーブ")});
+          message: "テキストを入力")});
 
   final MessageEvent messageEvent;
 

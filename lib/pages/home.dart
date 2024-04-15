@@ -4,6 +4,7 @@ import 'package:typist/components/system_floating_button.dart';
 import 'package:typist/components/message_event_dialog.dart';
 import 'package:typist/consts/message_event.dart';
 import 'package:typist/pages/settings.dart';
+import 'package:typist/consts/messages.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -13,11 +14,12 @@ class Home extends StatefulWidget {
 }
 
 class _Home extends State<Home> {
-  List<MessageEvent> events = [];
+  //List<MessageEvent> events = [];
+  Messages messages = Messages.instance;
 
   // メッセージイベントの追加
   void addMessageEvent(MessageEvent event) {
-    events.add(event);
+    messages.add(event);
   }
 
   @override
@@ -30,20 +32,19 @@ class _Home extends State<Home> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  for (final card in events)
+                  for (final card in messages.events)
                     MessageCard(
                         label: card.label,
                         overview: card.message,
                         edit: () {
-                          dynamic event = showDialog<String>(
+                          showDialog<MessageEvent>(
                               context: context,
                               builder: (BuildContext context) =>
                                   const MessageEventDialog());
-                          debugPrint(event);
                         },
                         trash: () {
                           setState(() {
-                            events.remove(card);
+                            messages.remove(card);
                           });
                         }),
                   const SizedBox(height: 8),
