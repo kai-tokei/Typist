@@ -35,12 +35,11 @@ class _Home extends State<Home> {
                         label: card.label,
                         overview: card.message,
                         edit: () {
-                          showDialog<String>(
+                          dynamic event = showDialog<String>(
                               context: context,
                               builder: (BuildContext context) =>
-                                  MessageEventDialog(
-                                    onPressed: (v) {},
-                                  ));
+                                  const MessageEventDialog());
+                          debugPrint(event);
                         },
                         trash: () {
                           setState(() {
@@ -53,9 +52,8 @@ class _Home extends State<Home> {
                     onPressed: () {
                       showDialog<String>(
                           context: context,
-                          builder: (BuildContext context) => MessageEventDialog(
-                                onPressed: (v) {},
-                              ));
+                          builder: (BuildContext context) =>
+                              const MessageEventDialog());
                     },
                     icons: Icons.add_outlined,
                   ),

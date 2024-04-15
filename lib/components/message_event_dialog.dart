@@ -6,24 +6,29 @@ import 'package:typist/consts/message_event.dart';
 import 'package:typist/consts/setting.dart';
 
 class MessageEventDialog extends StatefulWidget {
-  const MessageEventDialog({
-    super.key,
-    required this.onPressed,
-  });
+  const MessageEventDialog(
+      {super.key,
+      this.messageEvent = const MessageEvent(
+          label: "イーハトーブ",
+          posX: 0,
+          posY: 0,
+          width: 1,
+          height: 1,
+          message: "イーハトーブ")});
 
-  final Function(MessageEvent) onPressed;
+  final MessageEvent messageEvent;
 
   @override
   State<MessageEventDialog> createState() => _MessageEventDialog();
 }
 
 class _MessageEventDialog extends State<MessageEventDialog> {
-  String label = "";
-  int posX = 0;
-  int posY = 0;
-  int w = 0;
-  int h = 0;
-  String message = "";
+  late String label = widget.messageEvent.label;
+  late int posX = widget.messageEvent.posX;
+  late int posY = widget.messageEvent.posY;
+  late int w = widget.messageEvent.width;
+  late int h = widget.messageEvent.height;
+  late String message = widget.messageEvent.message;
 
   Setting setting = Setting.instance;
 
@@ -105,6 +110,7 @@ class _MessageEventDialog extends State<MessageEventDialog> {
                               const SizedBox(width: 4),
                               TextBox(
                                   hint: "Name of the event",
+                                  initialValue: label,
                                   onChanged: (v) {
                                     setState(() {
                                       label = v;
@@ -123,6 +129,7 @@ class _MessageEventDialog extends State<MessageEventDialog> {
                           TextBox(
                               hint: "x",
                               keyboardType: TextInputType.number,
+                              initialValue: posX.toString(),
                               inputFormatters: [
                                 FilteringTextInputFormatter.digitsOnly
                               ],
@@ -139,6 +146,7 @@ class _MessageEventDialog extends State<MessageEventDialog> {
                           TextBox(
                               hint: "y",
                               keyboardType: TextInputType.number,
+                              initialValue: posY.toString(),
                               inputFormatters: [
                                 FilteringTextInputFormatter.digitsOnly
                               ],
@@ -164,6 +172,7 @@ class _MessageEventDialog extends State<MessageEventDialog> {
                           TextBox(
                               hint: "width",
                               keyboardType: TextInputType.number,
+                              initialValue: w.toString(),
                               inputFormatters: [
                                 FilteringTextInputFormatter.digitsOnly
                               ],
@@ -180,6 +189,7 @@ class _MessageEventDialog extends State<MessageEventDialog> {
                           TextBox(
                               hint: "height",
                               keyboardType: TextInputType.number,
+                              initialValue: h.toString(),
                               inputFormatters: [
                                 FilteringTextInputFormatter.digitsOnly
                               ],
@@ -204,6 +214,7 @@ class _MessageEventDialog extends State<MessageEventDialog> {
                         Row(children: [
                           MultilineTextBox(
                             hintText: "messages...",
+                            initialValue: message,
                             onChanged: (v) {
                               setState(() {
                                 message = v;
@@ -218,7 +229,19 @@ class _MessageEventDialog extends State<MessageEventDialog> {
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.green,
                     ),
-                    onPressed: propatiesOk() ? () {} : null,
+                    onPressed: propatiesOk()
+                        ? () {
+                            Navigator.pop(
+                                context,
+                                MessageEvent(
+                                    label: label,
+                                    posX: posX,
+                                    posY: posY,
+                                    width: w,
+                                    height: h,
+                                    message: message));
+                          }
+                        : null,
                     child: const SizedBox(
                         height: 45,
                         child: Center(

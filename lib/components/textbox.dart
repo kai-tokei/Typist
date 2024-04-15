@@ -6,6 +6,7 @@ class TextBox extends StatelessWidget {
     super.key,
     required this.hint,
     required this.onChanged,
+    this.initialValue = "",
     this.inputFormatters = const [],
     this.keyboardType = TextInputType.none,
   });
@@ -14,17 +15,17 @@ class TextBox extends StatelessWidget {
   final String hint;
   final TextInputType keyboardType;
   final List<TextInputFormatter> inputFormatters;
+  final String initialValue;
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
-        child: TextField(
-            //keyboardType: TextInputType.number,
-            //inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+        child: TextFormField(
             keyboardType: keyboardType,
             inputFormatters: inputFormatters,
             onChanged: onChanged,
             cursorColor: Theme.of(context).colorScheme.secondary,
+            initialValue: initialValue,
             style: const TextStyle(fontSize: 18),
             decoration: InputDecoration(
               filled: true,
