@@ -15,4 +15,7 @@ class MessageEvent {
   final int width;
   final int height;
   final String message;
+
+  List<String> toCSVFormat() =>
+      [label, '$posX', '$posY', '$width', '$height', message];
 }
