@@ -24,12 +24,14 @@ class _Home extends State<Home> {
   }
 
   // ファイルの読み込み
-  Future<void> loadFile() async {}
-
-  // ファイルの書き出し
-  Future<void> exportFile() async {}
+  Future<void> loadFile() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles();
+  }
 
   // ファイルの保存
+
+  // ダイアログの表示
+  Future<void> showEditDialog() async {}
 
   @override
   Widget build(BuildContext context) {
@@ -94,9 +96,8 @@ class _Home extends State<Home> {
             const SizedBox(height: 16),
             SystemFloatingButton(
                 hero: "upload",
-                onPressed: () async {
-                  FilePickerResult? result =
-                      await FilePicker.platform.pickFiles();
+                onPressed: () {
+                  loadFile();
                 },
                 icons: Icons.upload_file_outlined),
             const SizedBox(height: 16),
