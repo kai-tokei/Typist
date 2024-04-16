@@ -1,3 +1,4 @@
+import 'package:csv/csv.dart';
 import 'package:flutter/material.dart';
 import 'package:typist/components/message_card.dart';
 import 'package:typist/components/system_floating_button.dart';
@@ -6,7 +7,7 @@ import 'package:typist/consts/message_event.dart';
 import 'package:typist/pages/settings.dart';
 import 'package:typist/consts/messages.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:flutter_file_dialog/flutter_file_dialog.dart';
+import 'dart:html';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -30,7 +31,16 @@ class _Home extends State<Home> {
   }
 
   // ファイルの保存
-  Future<void> saveFile() async {}
+  Future<void> saveFile() async {
+    final header = ["label", "pos_x", "pos_y", "size_x", "size_y", "message"];
+    final rows = messages.events.map((u) => u.toCSVFormat()).toList();
+    final csv = const ListToCsvConverter().convert(
+      [header, ...rows],
+    );
+    AnchorElement(href: "data:text/plain;charset=utf-8,$csv")
+      ..setAttribute("download", "data.csv")
+      ..click();
+  }
 
   // ダイアログの表示
   Future<void> showEditDialog() async {}
