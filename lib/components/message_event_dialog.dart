@@ -56,15 +56,21 @@ class _MessageEventDialog extends State<MessageEventDialog> {
     int numOfLines = 2,
   }) {
     int emptyLines = 0;
+    int numLines = 0;
     List<String> lines = text.split('\n');
     for (int i = 0; i < lines.length; i++) {
       if (lines[i].length > numOfChars) {
         return false;
       }
       if (lines[i] == "") {
+        numLines = 0;
         emptyLines++;
       } else {
+        numLines++;
         emptyLines = 0;
+      }
+      if (numLines > numOfLines) {
+        return false;
       }
       if (emptyLines > 1) {
         return false;

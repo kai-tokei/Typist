@@ -6,6 +6,7 @@ import 'package:typist/consts/message_event.dart';
 import 'package:typist/pages/settings.dart';
 import 'package:typist/consts/messages.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter_file_dialog/flutter_file_dialog.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -29,6 +30,9 @@ class _Home extends State<Home> {
   }
 
   // ファイルの保存
+  Future<void> saveFile() async {
+    String? outputFile = await FilePicker.platform.saveFile();
+  }
 
   // ダイアログの表示
   Future<void> showEditDialog() async {}
@@ -91,7 +95,9 @@ class _Home extends State<Home> {
             const SizedBox(height: 16),
             SystemFloatingButton(
                 hero: "download",
-                onPressed: () {},
+                onPressed: () {
+                  saveFile();
+                },
                 icons: Icons.file_download_outlined),
             const SizedBox(height: 16),
             SystemFloatingButton(
