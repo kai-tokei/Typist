@@ -5,6 +5,7 @@ import 'package:typist/components/message_event_dialog.dart';
 import 'package:typist/consts/message_event.dart';
 import 'package:typist/pages/settings.dart';
 import 'package:typist/consts/messages.dart';
+import 'package:file_picker/file_picker.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -22,6 +23,14 @@ class _Home extends State<Home> {
     messages.add(event);
   }
 
+  // ファイルの読み込み
+  Future<void> loadFile() async {}
+
+  // ファイルの書き出し
+  Future<void> exportFile() async {}
+
+  // ファイルの保存
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,7 +44,7 @@ class _Home extends State<Home> {
                   for (final card in messages.events)
                     MessageCard(
                         label: card.label,
-                        overview: card.message,
+                        overview: card.message.replaceAll("\n", " "),
                         edit: () async {
                           await showDialog<MessageEvent>(
                               context: context,
@@ -85,7 +94,10 @@ class _Home extends State<Home> {
             const SizedBox(height: 16),
             SystemFloatingButton(
                 hero: "upload",
-                onPressed: () {},
+                onPressed: () async {
+                  FilePickerResult? result =
+                      await FilePicker.platform.pickFiles();
+                },
                 icons: Icons.upload_file_outlined),
             const SizedBox(height: 16),
             SystemFloatingButton(
