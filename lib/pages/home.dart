@@ -30,9 +30,7 @@ class _Home extends State<Home> {
   }
 
   // ファイルの保存
-  Future<void> saveFile() async {
-    String? outputFile = await FilePicker.platform.saveFile();
-  }
+  Future<void> saveFile() async {}
 
   // ダイアログの表示
   Future<void> showEditDialog() async {}
