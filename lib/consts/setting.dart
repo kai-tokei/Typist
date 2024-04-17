@@ -3,6 +3,7 @@ class Setting {
 
   static final instance = Setting._();
 
+  String fileName = "data";
   int numOfChar = 18;
   int numOfLine = 2;
 
@@ -12,5 +13,9 @@ class Setting {
 
   void setNumOfLine(int v) {
     numOfLine = v;
+  }
+
+  void setFileName(String v) {
+    fileName = v;
   }
 }
