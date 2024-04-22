@@ -1,3 +1,5 @@
+import 'dart:js_util';
+
 import 'package:csv/csv.dart';
 import 'package:file_picker/_internal/file_picker_web.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +12,7 @@ import 'package:typist/consts/messages.dart';
 import 'package:file_picker/file_picker.dart';
 import 'dart:html' as html;
 import 'dart:convert';
+import 'package:typist/consts/setting.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -19,8 +22,8 @@ class Home extends StatefulWidget {
 }
 
 class _Home extends State<Home> {
-  //List<MessageEvent> events = [];
   Messages messages = Messages.instance;
+  Setting setting = Setting.instance;
 
   // メッセージイベントの追加
   void addMessageEvent(MessageEvent event) {
@@ -46,18 +49,14 @@ class _Home extends State<Home> {
 
   // ファイルの保存
   Future<void> saveFile() async {
-    String? outputFile = await FilePicker.platform.saveFile(
-      dialogTitle: 'Please select an output file:',
-      fileName: 'data.csv',
-    );
-
     final header = ["label", "pos_x", "pos_y", "size_x", "size_y", "message"];
     final rows = messages.events.map((u) => u.toCSVFormat()).toList();
     final csv = const ListToCsvConverter().convert(
       [header, ...rows],
     );
+
     html.AnchorElement(href: "data:text/plain;charset=utf-8,$csv")
-      ..setAttribute("download", "data.csv")
+      ..setAttribute("download", "${setting.fileName}.csv")
       ..click();
   }
 

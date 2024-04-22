@@ -29,6 +29,18 @@ class _Settings extends State<Settings> {
                       },
                     )),
                 const SizedBox(height: 32),
+                const Text("File Name",
+                    style:
+                        TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+                const SizedBox(height: 12),
+                SizedBox(
+                    width: 400,
+                    child: TextBox(
+                      hint: "fileName",
+                      onChanged: (v) {
+                        setting.setFileName(v);
+                      },
+                    )),
                 const Text("Num of chars",
                     style:
                         TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
