@@ -1,4 +1,5 @@
 import 'package:csv/csv.dart';
+import 'package:file_picker/_internal/file_picker_web.dart';
 import 'package:flutter/material.dart';
 import 'package:typist/components/message_card.dart';
 import 'package:typist/components/system_floating_button.dart';
@@ -7,7 +8,8 @@ import 'package:typist/consts/message_event.dart';
 import 'package:typist/pages/settings.dart';
 import 'package:typist/consts/messages.dart';
 import 'package:file_picker/file_picker.dart';
-import 'dart:html';
+import 'dart:html' as html;
+import 'dart:convert';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -27,17 +29,34 @@ class _Home extends State<Home> {
 
   // ファイルの読み込み
   Future<void> loadFile() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles();
+    FilePickerResult? result = await FilePickerWeb.platform.pickFiles(
+        type: FileType.custom,
+        allowedExtensions: ['csv'],
+        allowMultiple: false,
+        withData: true);
+
+    if (result != null) {
+      PlatformFile file = result.files.first;
+      String s = utf8.decode(file.bytes!);
+      debugPrint(s);
+    } else {
+      // User canceled the picker
+    }
   }
 
   // ファイルの保存
   Future<void> saveFile() async {
+    String? outputFile = await FilePicker.platform.saveFile(
+      dialogTitle: 'Please select an output file:',
+      fileName: 'data.csv',
+    );
+
     final header = ["label", "pos_x", "pos_y", "size_x", "size_y", "message"];
     final rows = messages.events.map((u) => u.toCSVFormat()).toList();
     final csv = const ListToCsvConverter().convert(
       [header, ...rows],
     );
-    AnchorElement(href: "data:text/plain;charset=utf-8,$csv")
+    html.AnchorElement(href: "data:text/plain;charset=utf-8,$csv")
       ..setAttribute("download", "data.csv")
       ..click();
   }
